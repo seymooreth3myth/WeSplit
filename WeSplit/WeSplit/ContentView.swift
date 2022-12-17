@@ -34,40 +34,14 @@ struct ContentView: View {
         let tipValue = checkAmount / 100 * tipSelection
         return checkAmount + tipValue
     }
-    
+    var localCurrencyIdentifier: FloatingPointFormatStyle<Double>.Currency {
+        let code = Locale.current.currency?.identifier ?? "USD"
+        return  FloatingPointFormatStyle<Double>.Currency(code: code)
+    }
+
     var body: some View {
         NavigationView {
             Form {
-//                Section {
-//                    HStack {
-//                        Image(systemName: "globe")
-//                            .imageScale(.large)
-//                            .foregroundColor(.accentColor)
-//                        Text("Hello, world!")
-//                    }
-//                }
-//
-//                Section {
-//                    Text("Hello, world! 2")
-//                }
-//
-//                Section {
-//                    Button("Tap to count \(count)") {
-//                        count += 1
-//                    }
-//                }
-//                Section {
-//                    TextField("Enter your name", text: $name)
-//                    Text("Your name is \(name)")
-//                }
-//                Section {
-//                    Picker("Select your student", selection: $selectedStudent) {
-//                        //is the same ForEach(students, {student in Text(\(student))})
-//                        ForEach(students, id: \.self) {
-//                            Text($0)
-//                        }
-//                    }
-//                }
                 Section {
                     TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                         .keyboardType(.decimalPad)
@@ -89,12 +63,12 @@ struct ContentView: View {
                     Text("How much tip do you want to leave?")
                 }
                 Section {
-                    Text(totalValue, format: .currency(code: Locale.current.currency?.identifier ?? "USB"))
+                    Text(totalValue, format: localCurrencyIdentifier)
                 } header: {
                     Text("Amount")
                 }
                 Section {
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    Text(totalPerPerson, format: localCurrencyIdentifier)
                 } header: {
                     Text("Amount per person:")
                 }
